@@ -1,28 +1,40 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Provider } from "react-redux";
+import store from "./store";
+import withStyles from "react-jss";
+import AddPerson from "./components/AddPerson";
+import Persons from "./containers/Persons";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+const styles = {
+	container: {
+		textAlign: "center",
+		margin: 8,
+		padding: 8
+	},
+	btnContainer: { marginBottom: 16 },
+	personContainer: {
+		display: "flex",
+		flexFlow: "row wrap",
+		padding: 5,
+		"& > div": {
+			margin: 5,
+			flex: "1 1 auto"
+		}
+	}
+};
 
-export default App;
+const app = ({ classes }) => {
+	return (
+		<Provider store={store}>
+			<div className={classes.container}>
+				<div className={classes.btnContainer}>
+					<AddPerson />
+				</div>
+				<div className={classes.personContainer}>
+					<Persons />
+				</div>
+			</div>
+		</Provider>
+	);
+};
+export default withStyles(styles)(app);
